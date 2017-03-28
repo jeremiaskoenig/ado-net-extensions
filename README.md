@@ -1,37 +1,49 @@
-## Welcome to GitHub Pages
+## ADO.NET Extensions
 
-You can use the [editor on GitHub](https://github.com/jeremiaskoenig/ado-net-extensions/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+I'll be updating this with small extensions and helper classes I create for ADO.NET
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Usability Extensions
 
-### Markdown
+The [Usability Extensions](https://github.com/jeremiaskoenig/ado-net-extensions/blob/master/ExtensionMethods.cs) allow to mark a DataRow inside your class to represent the class inside your DataTable. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
+class MyObject
+{
+    [DataRow]
+    public DataRow DataRow { get; set; }
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+    [DataField("ID")]
+    public Int32 ID { get; set; }
 
-### Jekyll Themes
+    [DataField("FirstName")]
+    public String FirstName { get; set; }
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jeremiaskoenig/ado-net-extensions/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+    [DataField("LastName")]
+    public String LastName { get; set; }
+}
 
-### Support or Contact
+// Contains three Columns 'ID', 'FirstName', 'LastName'
+DataTable Table { get; set; }
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+void Foo()
+{
+    MyObject myObj = new MyObject();
+    myObj.DataRow = Table.NewRow();
+    myObj.ID = 42;
+    myObj.FirstName = "John";
+    myObj.LastName = "Doe";
+    
+    // Update myObj.DataRow with the data of myObj's properties.
+    myObj.UpdateDataRow();
+}
+
+void Bar()
+{
+    MyObject myObj = new MyObject();
+    myObj.DataRow = Table.Rows[0];
+    
+    // Update myObj.ID, myObj.FirstName and myObj.LastName with
+    // the data of myObj.DataRow
+    myObj.UpdateProperties();
+}
+```
