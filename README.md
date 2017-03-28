@@ -6,7 +6,7 @@ I'll be updating this with small extensions and helper classes I create for ADO.
 
 The [Usability Extensions](https://github.com/jeremiaskoenig/ado-net-extensions/blob/master/ExtensionMethods.cs) allow to mark a DataRow inside your class to represent the class inside your DataTable. 
 
-```
+```C#
 class MyObject
 {
     [DataRow]
